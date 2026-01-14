@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bank Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<h2>🏦 Banking Dashboard</h2>
+
+<a href="/create-account">➕ Create New Account</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Balance</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr th:each="acc : ${accounts}">
+        <td th:text="${acc.id}"></td>
+        <td th:text="${acc.name}"></td>
+        <td th:text="${acc.email}"></td>
+        <td th:text="${acc.balance}"></td>
+
+        <td>
+            <form action="/deposit" method="post">
+                <input type="hidden" name="id" th:value="${acc.id}">
+                <input type="number" name="amount" placeholder="Deposit">
+                <button>Deposit</button>
+            </form>
+
+            <form action="/withdraw" method="post">
+                <input type="hidden" name="id" th:value="${acc.id}">
+                <input type="number" name="amount" placeholder="Withdraw">
+                <button>Withdraw</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
